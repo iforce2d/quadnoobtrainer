@@ -27,6 +27,8 @@
 
 #include "../libstem_gamepad/include/gamepad/Gamepad.h"
 
+#include "../Tests/Calibration.h"
+
 namespace
 {
 	int32 testIndex = 0;
@@ -340,7 +342,7 @@ void axisMoveFunc(struct Gamepad_device * device, unsigned int axisID, float val
     //printf("%d %f\n",axisID,value);
     //fflush(stdout);
     if ( test )
-        test->axisMove(axisID, value);
+        test->axisMove(device, axisID, value);
 }
 
 void buttonDownFunc(struct Gamepad_device * device, unsigned int buttonID, double timestamp, void * context)
@@ -357,6 +359,8 @@ int main(int argc, char** argv)
     Gamepad_axisMoveFunc(axisMoveFunc, NULL);
     Gamepad_init();
     Gamepad_detectDevices();
+
+    Calibration::loadSettings();
 
 	testCount = 0;
 	while (g_testEntries[testCount].createFcn != NULL)

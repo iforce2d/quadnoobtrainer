@@ -26,6 +26,7 @@
 #include "ThrottleLateralControl.h"
 #include "PIDTuning.h"
 #include "PIDTuning2.h"
+#include "Calibration.h"
 
 TestEntry g_testEntries[] =
 {
@@ -34,5 +35,6 @@ TestEntry g_testEntries[] =
     {"Throttle + lateral", ThrottleLateralControl::Create},
     {"PID tuning", PIDTuning::Create},
     {"PID tuning 2", PIDTuning2::Create},
-	{NULL, NULL}
+    {"Calibration", Calibration::Create},
+    {NULL, NULL}
 };

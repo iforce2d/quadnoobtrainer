@@ -8,6 +8,7 @@ set(Testbed_Framework_SRCS
 	Framework/Render.h
 	Framework/Test.cpp
 	Framework/Test.h
+        Framework/jsoncpp.cpp
 )
 
 #define the test files.
@@ -22,6 +23,8 @@ set(Testbed_Tests_SRCS
         Tests/PIDController.cpp
         Tests/PIDTuning.h
         Tests/PIDTuning2.h
+        Tests/Calibration.h
+        Tests/Calibration.cpp
 )
 
 # These are used to create visual studio folders.

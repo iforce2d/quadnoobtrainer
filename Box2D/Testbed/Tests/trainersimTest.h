@@ -21,6 +21,8 @@
 
 #include "quad.h"
 
+#include "../libstem_gamepad/include/gamepad/Gamepad.h"
+
 #define STEPS_FOR_GOAL_SUCCESS 180
 
 // gamepad mode 2
@@ -179,7 +181,7 @@ public:
         }
     }
 
-    virtual void axisMove(unsigned int axisID, float value)
+    virtual void axisMove(Gamepad_device* device, unsigned int axisID, float value)
     {
         if ( allowThrottleControl() ) {
             if ( m_controlDevice == CD_GAMEPAD ) {

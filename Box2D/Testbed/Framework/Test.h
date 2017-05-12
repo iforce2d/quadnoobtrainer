@@ -24,6 +24,8 @@
 
 #include <cstdlib>
 
+#include "../libstem_gamepad/include/gamepad/Gamepad.h"
+
 class Test;
 struct Settings;
 
@@ -136,7 +138,7 @@ public:
 	void ShiftMouseDown(const b2Vec2& p);
 	virtual void MouseDown(const b2Vec2& p);
 	virtual void MouseUp(const b2Vec2& p);
-    virtual void axisMove(unsigned int axisID, float value) {}
+    virtual void axisMove(Gamepad_device* device, unsigned int axisID, float value) {}
     virtual void buttonDown(unsigned int buttonID) {}
 	void MouseMove(const b2Vec2& p);
 	void LaunchBomb();

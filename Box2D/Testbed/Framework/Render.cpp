@@ -103,11 +103,11 @@ void DebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Ve
 	}
 	glEnd();
 
-	b2Vec2 p = center + radius * axis;
+    /*b2Vec2 p = center + radius * axis;
 	glBegin(GL_LINES);
 	glVertex2f(center.x, center.y);
 	glVertex2f(p.x, p.y);
-	glEnd();
+    glEnd();*/
 }
 
 void DebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)
