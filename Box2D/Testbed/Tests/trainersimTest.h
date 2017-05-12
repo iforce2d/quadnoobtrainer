@@ -22,9 +22,11 @@
 #include "quad.h"
 
 #include "../libstem_gamepad/include/gamepad/Gamepad.h"
+#include "../Tests/Calibration.h"
 
 #define STEPS_FOR_GOAL_SUCCESS 180
 
+/*
 // gamepad mode 2
 #define GAMEPAD_AXIS_YAW        0
 #define GAMEPAD_AXIS_THROTTLE   1
@@ -36,6 +38,7 @@
 #define FLYSKY_AXIS_THROTTLE   1
 #define FLYSKY_AXIS_ROLL       3
 #define FLYSKY_AXIS_PITCH      0
+*/
 
 enum _controlDevice {
     CD_KEYBOARD,
@@ -183,19 +186,26 @@ public:
 
     virtual void axisMove(Gamepad_device* device, unsigned int axisID, float value)
     {
+        if ( m_controlDevice == CD_KEYBOARD )
+            return;
+
         if ( allowThrottleControl() ) {
-            if ( m_controlDevice == CD_GAMEPAD ) {
-                if ( axisID == GAMEPAD_AXIS_THROTTLE  )
-                    m_quad->setThrottle( b2Clamp(-value, 0.0f, 1.0f) );
+
+            m_quad->setThrottle(Calibration::getCurrentThrottleOutput(device));
+
+            /*if ( m_controlDevice == CD_GAMEPAD ) {
+                //if ( axisID == GAMEPAD_AXIS_THROTTLE  )
+                //    m_quad->setThrottle( b2Clamp(-value, 0.0f, 1.0f) );
+                m_quad->setThrottle(Calibration::getCurrentThrottleOutput(device));
             }
             if ( m_controlDevice == CD_FLYSKY ) {
                 if ( axisID == FLYSKY_AXIS_THROTTLE  )
                     m_quad->setThrottle( b2Clamp(0.5f+0.5f*value, 0.0f, 1.0f) );
-            }
+            }*/
         }
 
         if ( allowLateralControl() ) {
-            if ( m_controlDevice == CD_GAMEPAD ) {
+            /*if ( m_controlDevice == CD_GAMEPAD ) {
                 if ( axisID == GAMEPAD_AXIS_ROLL ) {
                     if ( allowExpo() )
                         value *= pow( fabsf(value), 1 + m_quad->getExpo() );
@@ -208,7 +218,12 @@ public:
                         value *= pow( fabsf(value), 1 + m_quad->getExpo() );
                     m_quad->setRoll(-value);
                 }
-            }
+            }*/
+
+            float roll = -Calibration::getCurrentRollOutput(device);
+            if ( allowExpo() )
+                roll *= pow( fabsf(roll), 1 + m_quad->getExpo() );
+            m_quad->setRoll(roll);
         }
     }
 

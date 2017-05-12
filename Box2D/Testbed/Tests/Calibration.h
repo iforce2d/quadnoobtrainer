@@ -83,7 +83,7 @@ public:
                 bd.type = b2_dynamicBody;
                 bd.position.Set(-0.55,2);
                 if ( s_throttleChannel != 999 ) {
-                    bd.position.Set(lx + fabsf(s_throttleChannel) * spacing, 4.35);
+                    bd.position.Set(lx + (abs(s_throttleChannel)-1) * spacing, 4.35);
                     if ( s_throttleChannel < 0 )
                         bd.position.y += 4;
                 }
@@ -106,7 +106,7 @@ public:
                 bd.type = b2_dynamicBody;
                 bd.position.Set( 0.55,2);
                 if ( s_throttleChannel != 999 ) {
-                    bd.position.Set(lx + fabsf(s_rollChannel) * spacing, 4.35);
+                    bd.position.Set(lx + (abs(s_rollChannel)-1) * spacing, 4.35);
                     if ( s_rollChannel < 0 )
                         bd.position.y += 4;
                 }
@@ -187,12 +187,12 @@ public:
 
         for (int i = 0; i < m_device->numAxes; i++) {
             if ( m_axisFixtures[i] == f )
-                return i;
+                return i + 1;
         }
 
         for (int i = 0; i < m_device->numAxes; i++) {
             if ( m_reverseAxisFixtures[i] == f )
-                return -i;
+                return -(i + 1);
         }
 
         return 999;
@@ -313,7 +313,7 @@ public:
 
         if ( device ) {
             if ( s_throttleChannel != 999 ) {
-                int channelInd = abs(s_throttleChannel);
+                int channelInd = abs(s_throttleChannel) - 1;
                 tval = device->axisStates[channelInd];
                 if ( s_throttleChannel < 0 )
                     tval *= -1;
@@ -329,7 +329,7 @@ public:
 
         if ( device ) {
             if ( s_rollChannel != 999 ) {
-                int channelInd = abs(s_rollChannel);
+                int channelInd = abs(s_rollChannel) - 1;
                 rval = device->axisStates[channelInd];
                 if ( s_rollChannel < 0 )
                     rval *= -1;
