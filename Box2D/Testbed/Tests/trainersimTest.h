@@ -63,6 +63,8 @@ public:
         m_goalBody = NULL;
         m_touchingGoal = false;
         m_goalSuccessCounter = 0;
+
+        axisMove(0,0,0); // make display update without requiring a real axis event
     }
 
     b2Body* createGround()
