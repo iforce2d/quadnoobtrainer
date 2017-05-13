@@ -42,8 +42,7 @@
 
 enum _controlDevice {
     CD_KEYBOARD,
-    CD_GAMEPAD,
-    CD_FLYSKY
+    CD_GAMEPAD
 };
 
 class TrainersimTest : public Test
@@ -128,7 +127,7 @@ public:
             break;
 
         case 'c':
-            m_controlDevice = (m_controlDevice + 1) % 3;
+            m_controlDevice = (m_controlDevice + 1) % 2;
             break;
 
         case 'w':
@@ -191,39 +190,23 @@ public:
 
         if ( allowThrottleControl() ) {
 
-            m_quad->setThrottle(Calibration::getCurrentThrottleOutput(device));
-
-            /*if ( m_controlDevice == CD_GAMEPAD ) {
-                //if ( axisID == GAMEPAD_AXIS_THROTTLE  )
-                //    m_quad->setThrottle( b2Clamp(-value, 0.0f, 1.0f) );
-                m_quad->setThrottle(Calibration::getCurrentThrottleOutput(device));
-            }
-            if ( m_controlDevice == CD_FLYSKY ) {
-                if ( axisID == FLYSKY_AXIS_THROTTLE  )
-                    m_quad->setThrottle( b2Clamp(0.5f+0.5f*value, 0.0f, 1.0f) );
-            }*/
+			float tval = 0;
+			float tdenom = Calibration::s_maxThrottle - Calibration::s_minThrottle;
+			if (tdenom != 0)
+				tval = (Calibration::getCurrentThrottleOutput(device) - Calibration::s_minThrottle) / tdenom;
+			//tval = tval * 2 - 1;
+			
+			m_quad->setThrottle(tval);
         }
 
         if ( allowLateralControl() ) {
-            /*if ( m_controlDevice == CD_GAMEPAD ) {
-                if ( axisID == GAMEPAD_AXIS_ROLL ) {
-                    if ( allowExpo() )
-                        value *= pow( fabsf(value), 1 + m_quad->getExpo() );
-                    m_quad->setRoll(-value);
-                }
-            }
-            if ( m_controlDevice == CD_FLYSKY ) {
-                if ( axisID == FLYSKY_AXIS_ROLL ) {
-                    if ( allowExpo() )
-                        value *= pow( fabsf(value), 1 + m_quad->getExpo() );
-                    m_quad->setRoll(-value);
-                }
-            }*/
 
-            float roll = -Calibration::getCurrentRollOutput(device);
-            if ( allowExpo() )
-                roll *= pow( fabsf(roll), 1 + m_quad->getExpo() );
-            m_quad->setRoll(roll);
+			float rval = 0;
+			float rdenom = Calibration::s_maxRoll - Calibration::s_minRoll;
+			if (rdenom != 0)
+				rval = (Calibration::getCurrentRollOutput(device) - Calibration::s_minRoll) / rdenom;
+
+            m_quad->setRoll(-(rval * 2 - 1));
         }
     }
 
@@ -284,7 +267,7 @@ public:
 
         m_debugDraw.DrawString(5, m_textLine, "Press R to reset");
         m_textLine += 15;
-        m_debugDraw.DrawString(5, m_textLine, "Press C to change control method (currently using %s)", m_controlDevice == CD_KEYBOARD ? "keyboard":m_controlDevice==CD_GAMEPAD?"gamepad":"trainer port");
+        m_debugDraw.DrawString(5, m_textLine, "Press C to change control device (currently using %s)", m_controlDevice == CD_KEYBOARD ? "keyboard":"gamepad/trainer port");
         m_textLine += 15;
         if ( m_controlDevice == CD_KEYBOARD ) {
             if ( allowThrottleControl() ) {
