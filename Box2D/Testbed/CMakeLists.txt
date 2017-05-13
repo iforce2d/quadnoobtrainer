@@ -53,6 +53,13 @@ target_link_libraries (
 	Box2D
 	freeglut_static
         glui
-        /home/chris/projects/budgetMiniQuad/quadnoobtrainer/Box2D/Testbed/libstem_gamepad/library/debug-linux64/libstem_gamepad.a
 	${OPENGL_LIBRARIES}
+	
+	# linux
+	/home/chris/projects/budgetMiniQuad/quadnoobtrainer/Box2D/Testbed/libstem_gamepad/library/debug-linux64/libstem_gamepad.a
+
+	# mac
+        #/Users/chris/projects/budgetMiniQuad/quadnoobtrainer/Box2D/Testbed/libstem_gamepad/library/debug-macosx/libstem_gamepad.a
+	#"-framework Foundation"
+	#"-framework IOKit"
 ) 

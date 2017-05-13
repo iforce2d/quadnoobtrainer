@@ -356,13 +356,14 @@ public:
 
         Test::Step(settings);
 
-        m_debugDraw.DrawString(5, m_textLine, "No device found.");
-        m_textLine += 15;
-        m_debugDraw.DrawString(5, m_textLine, "Plug in a gamepad or trainer port cable and restart the program.");
-        m_textLine += 15;
 
-        if ( ! m_device )
+        if ( ! m_device ) {
+            m_debugDraw.DrawString(5, m_textLine, "No device found.");
+            m_textLine += 15;
+            m_debugDraw.DrawString(5, m_textLine, "Plug in a gamepad or trainer port cable and restart the program.");
+            m_textLine += 15;
             return;
+        }
 
 
         float lx = -5;
