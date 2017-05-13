@@ -16,6 +16,9 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
+
+#include <time.h>
+
 #include "Render.h"
 #include "Test.h"
 #include "glui/GL/glui.h"

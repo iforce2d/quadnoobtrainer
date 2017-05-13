@@ -20,8 +20,17 @@
 #include "freeglut/GL/glut.h"
 #include "quad.h"
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif // !M_PI
+
+
 #define QUAD_WIDTH  0.3
 #define QUAD_HEIGHT 0.04
+
+float Quad::thrust2S = 1.6;
+float Quad::thrust3S = 2.4;
+float Quad::thrust4S = 3.2;
 
 int Quad::m_numCells = 2;
 int Quad::m_controlMode = 0;

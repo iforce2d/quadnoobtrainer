@@ -88,6 +88,8 @@ public:
         fd.shape = &shape;
 
         m_goalBody->CreateFixture(&fd);
+
+		return m_goalBody;
     }
 
     virtual void moveGoal() {}

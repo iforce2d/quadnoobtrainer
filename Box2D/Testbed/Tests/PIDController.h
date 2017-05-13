@@ -42,9 +42,9 @@ public:
         m_currentPoint = m_previousPoint = m_integral = m_output = 0;
     }
 
-    float setP(float p) { m_gainP = p; }
-    float setI(float i) { if ( m_gainI != 0 ) m_integral *= i/m_gainI; m_gainI = i;  }
-    float setD(float d) { m_gainD = d; }
+    void setP(float p) { m_gainP = p; }
+    void setI(float i) { if ( m_gainI != 0 ) m_integral *= i/m_gainI; m_gainI = i;  }
+    void setD(float d) { m_gainD = d; }
     float getP() { return m_gainP; }
     float getI() { return m_gainI; }
     float getD() { return m_gainD; }

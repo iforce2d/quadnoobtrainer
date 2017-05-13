@@ -67,9 +67,9 @@ class Quad
 
 public:
 
-    static const float thrust2S = 1.6;
-    static const float thrust3S = 2.4;
-    static const float thrust4S = 3.2;
+    static float thrust2S;
+    static float thrust3S;
+    static float thrust4S;
 
     Quad(b2World* world, b2Body *ground, b2Vec2 startPosition);
     void setFixedRotation(bool b);
